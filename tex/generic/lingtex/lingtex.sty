@@ -2,9 +2,9 @@
 \ExplSyntaxOn
 
 \ProvidesExplPackage
-{lingtex}  % package name
+{lingtex}     % package name
 {2023-09-22}  % release date
-{0.1}  % release version
+{0.1}         % release version
 {Linguistics~meta-package}  % description
 
 \keys_define:nn { lingtex }
@@ -64,7 +64,7 @@
 \newgeometry{margin=1.2in}
 \onehalfspacing
 
-% gb4e redefines some commands which forest uses; 
+% gb4e redefines some commands which forest uses;
 % we have to load forest before gb4e
 \str_case:VnF \l__lingtex_trees_tl {
 { forest } {
@@ -263,16 +263,16 @@ sibling~distance=1.5\baselineskip,
 \ifPDFTeX
 	\str_case:VnF \l__lingtex_font_tl {
 		{ cochineal } {
-            \RequirePackage{cochineal}
-            \RequirePackage[varqu,varl,var0]{inconsolata}
-            \RequirePackage[scale=.95,type1]{cabin}
-            \RequirePackage[cochineal,vvarbb]{newtxmath}
-            \RequirePackage[cal=boondoxo]{mathalfa}
-        }
-        { libertinus } { \RequirePackage{libertinus} }
-        { lmodern } { \RequirePackage{lmodern} }
-        { times } { \RequirePackage{mathptmx} }
-        {} {}
+				\RequirePackage{cochineal}
+				\RequirePackage[varqu,varl,var0]{inconsolata}
+				\RequirePackage[scale=.95,type1]{cabin}
+				\RequirePackage[cochineal,vvarbb]{newtxmath}
+				\RequirePackage[cal=boondoxo]{mathalfa}
+			}
+			{ libertinus } { \RequirePackage{libertinus} }
+			{ lmodern } { \RequirePackage{lmodern} }
+			{ times } { \RequirePackage{mathptmx} }
+			{} {}
 	}{
 		\PackageError{lingtex}{Unknown~font~‘\l__lingtex_font_tl’}{}
 	}
@@ -298,37 +298,37 @@ sibling~distance=1.5\baselineskip,
 		% unicode-math redefines \gla at document start, we redefine it back
 		{ expex } { \let\oldgla\gla }}
 	\str_case:VnF \l__lingtex_font_tl {
-        { cochineal } {
-            % We need to load the non-otf cochineal fonts
-            % via newtx in order to get \mathrm to use them.
-            \usepackage[cochineal,vvarbb]{newtx}
-            \usepackage[cal=boondoxo]{mathalfa}
-            \usepackage{cochineal}
-        }
-		{ libertinus } {
-            \RequirePackage[libertinus]{fontsetup}
-            \let\ipafont\rmfamily
-        }
-        { lmodern } {
-            % I have no idea why this is necessary, but for some reason
-            % *only* the `default` option (loading New Computer Modern)
-            % causes a conflict with `tipauni`.
-            \let\oldtextipa\textipa
-            \let\textipa\relax
-            \RequirePackage[default]{fontsetup}
-            \let\textipa\oldtextipa
-            \let\ipafont\rmfamily
-        }
-        { times } {
-            % \RequirePackage[times]{fontsetup}
-            % \RequirePackage[nomath]{fontspec}
-            \setmainfont{TeX Gyre Termes}
-            \RequirePackage{unicode-math}
-            \setmathfont{XITS Math}
-            \newfontfamily\doulos{Doulos SIL}[Scale=MatchLowercase]
-            \let\ipafont\doulos
-        }
-        {} {\let\ipafont\rmfamily}
+		{ cochineal } {
+				% We need to load the non-otf cochineal fonts
+				% via newtx in order to get \mathrm to use them.
+				\usepackage[cochineal,vvarbb]{newtx}
+				\usepackage[cal=boondoxo]{mathalfa}
+				\usepackage{cochineal}
+			}
+			{ libertinus } {
+				\RequirePackage[libertinus]{fontsetup}
+				\let\ipafont\rmfamily
+			}
+			{ lmodern } {
+				% I have no idea why this is necessary, but for some reason
+				% *only* the `default` option (loading New Computer Modern)
+				% causes a conflict with `tipauni`.
+				\let\oldtextipa\textipa
+				\let\textipa\relax
+				\RequirePackage[default]{fontsetup}
+				\let\textipa\oldtextipa
+				\let\ipafont\rmfamily
+			}
+			{ times } {
+				% \RequirePackage[times]{fontsetup}
+				% \RequirePackage[nomath]{fontspec}
+				\setmainfont{TeX Gyre Termes}
+				\RequirePackage{unicode-math}
+				\setmathfont{XITS Math}
+				\newfontfamily\doulos{Doulos SIL}[Scale=MatchLowercase]
+				\let\ipafont\doulos
+			}
+			{} {\let\ipafont\rmfamily}
 	}{
 		\PackageError{lingtex}{Unknown~font~‘\l__lingtex_font_tl’}{}
 	}
