@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{unicodefonttable}
+
+\setlength{\textwidth}{470pt}
+\setlength{\oddsidemargin}{0pt}
+\addtolength{\textheight}{7\baselineskip}
+\addtolength{\topmargin}{-3\baselineskip}
+
+\ExplSyntaxOn
+\cs_set:Npn \__fmuft_format_row_title:n #1 {
+% BV mod begin
+% Change row title from U+0000 - 000F to U+000x
+%  \texttt { \footnotesize \l__fmuft_color_tl U+#1 0 \, - \, #1 F }
+  \texttt { \footnotesize \l__fmuft_color_tl U+#1 x }
+% BV mod end
+}
+\cs_set:Npn \__fmuft_maybe_typeset_a_row_and_display_a_block_title: {
+  \bool_if:NTF \g__fmuft_glyph_seen_bool
+    {
+      \tl_if_empty:NTF \g__fmuft_block_title_tl
+         {
+           \bool_if:NTF \g__fmuft_row_missing_bool
+                { \__fmuft_debug_nl:n{A}\\[6pt] }
+                { \__fmuft_debug_nl:n{B}\\      }
+         }
+         {
+           \typeout{ Processing~ \tl_use:N \g__fmuft_block_title_tl }
+           \bool_if:NTF \l__fmuft_display_block_bool
+                {
+                  \bool_if:NTF \g__fmuft_first_row_bool
+                    {
+                      \bool_gset_false:N \g__fmuft_first_row_bool
+                      \__fmuft_debug_nl:n{C}\\[-4pt]
+                    }
+                    {
+                      \__fmuft_debug_nl:n{D}\\[8pt]
+                      \noalign{\vskip 1pt plus 1pt} % space above block: customizable?
+                    }
+% BV mod begin 
+% Unbolden block title
+%                 \multicolumn{17}{c}{\normalfont \bfseries
+                 \multicolumn{17}{c}{\normalfont
+% BV mod end
+                                     \tl_use:N \g__fmuft_block_title_tl}
+                  \bool_if:NTF \l__fmuft_blockwise_hex_digits_bool
+% BV mod begin
+% Add space between block title and block table
+%                       { \__fmuft_debug_nl:n{E}\\*
+                       { \__fmuft_debug_nl:n{E}\\*[4pt]
+% BV mod end
+                         \__fmuft_display_row_of_hex_digits:
+                         \__fmuft_debug_nl:n{H}\\*[2pt]
+                       }
+                       { \__fmuft_debug_nl:n{F}\\*[2pt] }
+                }
+                {
+                  \bool_if:NTF \g__fmuft_first_row_bool
+                    { \bool_gset_false:N \g__fmuft_first_row_bool }
+                    {
+                      \__fmuft_debug_nl:n{G~ (new~ block)}
+                      \l__fmuft_display_block_action_tl
+                    }
+                }
+           \tl_gclear:N \g__fmuft_block_title_tl
+         }
+      \bool_gset_false:N \g__fmuft_glyph_seen_bool
+      \bool_gset_false:N \g__fmuft_row_missing_bool
+      \tl_use:N \g__fmuft_row_tl
+    }
+    {
+      \bool_gset_true:N \g__fmuft_row_missing_bool
+    }
+}
+\ExplSyntaxOff
+
+\setmainfont{Latin Modern Roman}[Renderer=Harfbuzz]
+\setmonofont{Latin Modern Mono}[Renderer=Harfbuzz]
+
+\begin{document}
+
+\displayfonttable[%
+  title-format=\multicolumn{17}{c}{\normalfont\bfseries Latin Modern Math},
+  title-format-cont=\multicolumn{17}{c}{\normalfont\bfseries Latin Modern Math, \emph{cont.}},
+  hex-digits=block,
+  hex-digits-font=\ttfamily\footnotesize,
+  glyph-width=10pt,
+  missing-glyph={\rule{8pt}{8pt}},
+  missing-glyph-color=black!15,
+  range-end=FFFFF,
+  ]{Latin Modern Math}[Renderer=Harfbuzz]
+
+\end{document}
