@@ -1,0 +1,60 @@
+% See http://tug.org/pracjourn/2005-3/asknelly/ for a nice statement
+% of the difference between .cls and .sty files.
+\RequirePackage{expl3}
+\RequirePackage{polyglossia}
+\RequirePackage{fontspec}
+
+\ExplSyntaxOn
+
+\cs_new_protected:Npn \candrakantah_set_fonts:
+{
+  \setdefaultlanguage[variant=british]{english}
+  \setotherlanguage{sanskrit}
+
+  \defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
+
+  \setmainfont{andika}[
+    Extension      = .ttf,
+    UprightFont    = *-regular,
+    ItalicFont     = *-italic,
+    BoldFont       = *-bold,
+    BoldItalicFont = *-bolditalic,
+    Numbers        = Lining
+  ]
+
+  \newfontfamily\sanskritfont[Script=Latin,Numbers=Lining,Scale=MatchLowercase]{Andika}
+  \newfontfamily\devanagarifont[Script=Devanagari,Mapping=iast-dn,Scale=MatchLowercase]{Shobhika}
+}
+
+\cs_new_protected:Npn \candrakantah_define_commands:
+{
+  \NewDocumentEnvironment{sloka}{}
+  {
+    \begingroup
+    \setlength{\topsep}{0pt}
+    \setlength{\partopsep}{0pt}
+    \list{}{\rightmargin\leftmargin}%
+    \item\relax
+  }
+  {
+    \endlist
+    \endgroup
+  }
+
+  \NewDocumentCommand{\dn}{m}
+  {
+    \textsanskrit{\devanagarifont #1}
+  }
+
+  \NewDocumentCommand{\sa}{m}
+  {
+    \textsanskrit{\emph{\sanskritfont #1}}
+  }
+}
+
+\candrakantah_set_fonts:
+\candrakantah_define_commands:
+
+\ExplSyntaxOff
+
+\endinput
