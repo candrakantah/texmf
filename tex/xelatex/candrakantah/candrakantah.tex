@@ -1,0 +1,55 @@
+% candrakantah.tex - Example document using candrakantah.cls
+\documentclass{candrakantah}
+\usepackage{candrakantah}
+
+\title{Demo Document for Candrakantah Class}
+\author{John Doe}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This document demonstrates the features of the \texttt{candrakantah} class.
+
+\section{Defined Commands Demonstration}
+
+\section{Lists}
+\begin{itemize}
+  \item First item
+  \item Second item
+  \item Third item
+\end{itemize}
+
+\section{Tables}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lcr}
+    \toprule
+    Column 1 & Column 2 & Column 3 \\
+    \midrule
+    A        & B        & C        \\
+    D        & E        & F        \\
+    \bottomrule
+  \end{tabular}
+  \caption{Example Table}
+\end{table}
+
+\section{Colors}
+This text is \textcolor{darkpowderblue}{dark powder blue}, and this text is \textcolor{cadmiumred}{cadmium red}.
+
+\section{Hyperlinks}
+Visit \href{https://www.example.com}{this link}.
+
+\section{Verbatim Code}
+\begin{Verbatim}
+  function example() {
+      console.log("Hello, world!");
+    }
+\end{Verbatim}
+
+\section{Headers and Footers}
+Check the document headers and footers to see their formatting.
+
+\end{document}
