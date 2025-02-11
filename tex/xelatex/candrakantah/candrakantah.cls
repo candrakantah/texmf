@@ -91,13 +91,20 @@
 
 % Font settings
 \defaultfontfeatures{Scale=MatchLowercase,Mapping=tex-text}
-\setmainfont{gentium-bookplus}[Extension=.ttf, UprightFont=*-regular, ItalicFont=*-italic, BoldFont=*-bold, BoldItalicFont=*-bolditalic]
-\setsansfont{libertinus-sans}[Extension=.otf, UprightFont=*-regular, ItalicFont=*-italic, BoldFont=*-bold, Scale=MatchLowercase]
+
+\setmainfont{andika}[
+  Extension      = .ttf,
+  UprightFont    = *-regular,
+  ItalicFont     = *-italic,
+  BoldFont       = *-bold,
+  BoldItalicFont = *-bolditalic,
+  Numbers        = Lining
+]
 
 % Language settings
 \setmainlanguage[variant=british]{english}
 \setotherlanguage{sanskrit}
-\newfontfamily\sanskritfont[Script=Latin,Numbers=Lining,Scale=MatchLowercase]{Brill}
+\newfontfamily\sanskritfont[Script=Latin,Numbers=Lining,Scale=MatchLowercase]{Andika}
 \newfontfamily\devanagarifont[Script=Devanagari,Mapping=iast-dn,Scale=MatchLowercase]{Shobhika}
 
 % Macros for Sanskrit and transliteration
@@ -108,6 +115,19 @@
 \NewDocumentCommand{\danda}{}{{\dn।}\@\xspace}
 \NewDocumentCommand{\ddanda}{}{{\dn॥}\@\xspace}
 \NewDocumentCommand{\iti}{m}{\begin{center}{\dn॥}\@\xspace \textsanskrit#1 {\dn॥}\end{center}\par}
+
+\NewDocumentEnvironment{sloka}{}
+{
+  \begingroup
+  \setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \list{}{\rightmargin\leftmargin}%
+  \item\relax
+}
+{
+  \endlist
+  \endgroup
+}
 
 % Improved numeral suffixes
 \NewDocumentCommand{\st}{} {\textsuperscript{\textup{st}}\xspace}
@@ -128,9 +148,6 @@
 \NewDocumentCommand{\BCE}{} {\textsc{bce}{}\@\xspace}
 \NewDocumentCommand{\CE}{} {\textsc{ce}{}\@\xspace}
 \NewDocumentCommand{\IAST}{} {\textsc{iast}{}\@\xspace}
-
-% Fractional numbers with OpenType support
-\NewDocumentCommand{\fr}{m/m} {\addfontfeatures{Fractions=On}#1/#2}
 
 \ExplSyntaxOff
 \endinput
